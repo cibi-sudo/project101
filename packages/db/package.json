@@ -21,17 +21,17 @@
   },
   "dependencies": {
     "@prisma/client": "^6.17.0",
+    "@prisma/extension-accelerate": "^2.0.2",
     "@repo/typescript-config": "workspace:*",
-    "@repo/validation": "workspace:*"
+    "@repo/validation": "workspace:*",
+    "prisma": "^6.17.1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@prisma/extension-accelerate": "^2.0.2",
     "@types/node": "^22.15.3",
-    "prisma": "^6.17.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

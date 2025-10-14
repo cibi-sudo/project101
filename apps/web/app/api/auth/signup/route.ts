@@ -1,31 +1,33 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { userDAL } from "@repo/db";
-import {hashPassword} from "@repo/auth";
-import {userSignupSchema} from "@repo/validation";
+import { hashPassword } from "@repo/auth";
+import { userSignupSchema } from "@repo/validation";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") return res.status(405).end();
-
-    const validateData = userSignupSchema.safeParse(req.body);
-
-    if (!validateData.success) {
-        return res.status(400).json({ error: "Validation error"});
-    }
-
-    const { email, password,username } = validateData.data;
-
+export async function POST(req: Request) {
     try {
+        const body = await req.json();
+
+        const validateData = userSignupSchema.safeParse(body);
+        if (!validateData.success) {
+            return new Response(JSON.stringify({ error: "Validation error" }), { status: 400 });
+        }
+
+        const { email, password, name } = validateData.data;
+
         const existingUser = await userDAL.findByEmail({ email });
-        if (existingUser) return res.status(400).json({ error: "User already exists" });
+        if (existingUser) {
+            return new Response(JSON.stringify({ error: "User already exists" }), { status: 400 });
+        }
 
         const hashedPassword = await hashPassword(password);
 
-        const newUser = await userDAL.createUser({ email, password: hashedPassword,username });
+        const newUser = await userDAL.createUser({ email, password: hashedPassword, name });
 
-        res.status(201).json({ user: { id: newUser.id, email: newUser.email }});
+        return new Response(
+            JSON.stringify({ user: { id: newUser.id, email: newUser.email } }),
+            { status: 201 }
+        );
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Internal server error" });
+        return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
     }
 }
-

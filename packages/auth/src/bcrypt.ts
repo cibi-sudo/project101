@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcryptjs';
 
 const SALT_ROUNDS  = Number(process.env.SALT_ROUNDS || 10);
 
