@@ -1,0 +1,38 @@
+{
+  "name": "@repo/db",
+  "version": "1.0.0",
+  "description": "Prisma client package",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
+    },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "generate": "pnpm prisma generate --no-engine",
+    "migrate": "pnpm prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.17.0",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/validation": "workspace:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@prisma/extension-accelerate": "^2.0.2",
+    "@types/node": "^22.15.3",
+    "prisma": "^6.17.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

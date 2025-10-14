@@ -1,0 +1,22 @@
+{
+  "name": "@repo/ws-backend",
+  "version": "1.0.0",
+  "description": "web socket backend",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist",
+    "dev": "npm run build && npm run start",
+    "start": "node ./dist/index.js"
+  },
+  "dependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "ws": "^8.18.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/ws": "^8.18.1"
+  }
+}
