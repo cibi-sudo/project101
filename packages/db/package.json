@@ -24,6 +24,7 @@
     "@prisma/extension-accelerate": "^2.0.2",
     "@repo/typescript-config": "workspace:*",
     "@repo/validation": "workspace:*",
+    "@repo/auth": "workspace:*",
     "prisma": "^6.17.1"
   },
   "keywords": [],

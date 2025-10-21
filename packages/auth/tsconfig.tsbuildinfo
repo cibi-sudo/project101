@@ -1,1 +1,1 @@
-{"root":["./src/bcrypt.ts","./src/index.ts","./src/jwt.ts"],"version":"5.9.3"}
+{"root":["./src/authMiddleware.ts","./src/bcrypt.ts","./src/index.ts","./src/jwt.ts"],"version":"5.9.3"}

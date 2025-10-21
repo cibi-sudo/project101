@@ -173,7 +173,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/media/cibi/New Volume/Projects/100x/inkly/packages/db/prisma/src/generated/prisma",
+      "value": "/media/cibi/New Volume/Projects/100x/inkly/packages/db/prisma/client",
       "fromEnvVar": null
     },
     "config": {
@@ -192,16 +192,15 @@ const config = {
   },
   "relativeEnvPaths": {
     "rootEnvPath": null,
-    "schemaEnvPath": "../../../../.env"
+    "schemaEnvPath": "../../.env"
   },
-  "relativePath": "../../..",
+  "relativePath": "..",
   "clientVersion": "6.17.1",
   "engineVersion": "272a37d34178c2894197e17273bf937f25acdeac",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -210,8 +209,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  name      String?\n  email     String   @unique\n  password  String\n  image     String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  boards        Board[]\n  collaborators Collaborator[]\n}\n\nmodel Board {\n  id            String         @id @default(cuid())\n  title         String\n  ownerId       String\n  owner         User           @relation(fields: [ownerId], references: [id])\n  elements      Element[]\n  collaborators Collaborator[]\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n}\n\nmodel Element {\n  id        String   @id @default(cuid())\n  boardId   String\n  board     Board    @relation(fields: [boardId], references: [id])\n  type      String\n  data      Json\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Collaborator {\n  id        String   @id @default(cuid())\n  boardId   String\n  userId    String\n  role      Role\n  board     Board    @relation(fields: [boardId], references: [id])\n  user      User     @relation(fields: [userId], references: [id])\n  createdAt DateTime @default(now())\n}\n\nenum Role {\n  VIEWER\n  EDITOR\n}\n",
-  "inlineSchemaHash": "ba04f61fdf76060459fc4fe0e92fed37388297d2d8403efbc6fb172b4f30eeff",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  name      String?\n  email     String   @unique\n  password  String\n  image     String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  boards        Board[]\n  collaborators Collaborator[]\n}\n\nmodel Board {\n  id            String         @id @default(cuid())\n  title         String\n  ownerId       String\n  owner         User           @relation(fields: [ownerId], references: [id])\n  elements      Element[]\n  collaborators Collaborator[]\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n}\n\nmodel Element {\n  id        String   @id @default(cuid())\n  boardId   String\n  board     Board    @relation(fields: [boardId], references: [id])\n  type      String\n  data      Json\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Collaborator {\n  id        String   @id @default(cuid())\n  boardId   String\n  userId    String\n  role      Role\n  board     Board    @relation(fields: [boardId], references: [id])\n  user      User     @relation(fields: [userId], references: [id])\n  createdAt DateTime @default(now())\n}\n\nenum Role {\n  VIEWER\n  EDITOR\n}\n",
+  "inlineSchemaHash": "0ddf784411f27b8138e662b2c0943652f0b616359c5ece5a838939210582122e",
   "copyEngine": true
 }
 config.dirname = '/'

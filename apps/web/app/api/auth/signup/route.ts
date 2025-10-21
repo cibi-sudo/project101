@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { userDAL } from "@repo/db";
 import { hashPassword } from "@repo/auth";
 import { userSignupSchema } from "@repo/validation";
@@ -5,29 +6,36 @@ import { userSignupSchema } from "@repo/validation";
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-
-        const validateData = userSignupSchema.safeParse(body);
-        if (!validateData.success) {
-            return new Response(JSON.stringify({ error: "Validation error" }), { status: 400 });
+        const validated = userSignupSchema.safeParse(body);
+        if (!validated.success) {
+            return NextResponse.json({ error: "Validation failed" }, { status: 400 });
         }
 
-        const { email, password, name } = validateData.data;
+        const { email, password, name } = validated.data;
 
         const existingUser = await userDAL.findByEmail({ email });
         if (existingUser) {
-            return new Response(JSON.stringify({ error: "User already exists" }), { status: 400 });
+            return NextResponse.json({ error: "User already exists" }, { status: 400 });
         }
 
         const hashedPassword = await hashPassword(password);
 
-        const newUser = await userDAL.createUser({ email, password: hashedPassword, name });
+        const newUser = await userDAL.createUser({
+            email,
+            password: hashedPassword,
+            name,
+        });
 
-        return new Response(
-            JSON.stringify({ user: { id: newUser.id, email: newUser.email } }),
+        return NextResponse.json(
+            {
+                message: "Signup successful",
+                user: { id: newUser.id, email: newUser.email, name: newUser.name },
+            },
             { status: 201 }
         );
-    } catch (err) {
-        console.error(err);
-        return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
+
+    } catch (error) {
+        console.error("Signup error:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }
