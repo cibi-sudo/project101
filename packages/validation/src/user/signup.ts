@@ -5,7 +5,7 @@ export const userSignupSchema = z.object({
         .string()
         .min(4, { message: "Username must be at least 4 characters long" })
         .optional(),
-    email: z.string().email({ message: "Please provide a valid email address" }),
+    email: z.email({ message: "Please provide a valid email address" }),
     password: z
         .string()
         .min(8, { message: "Password must be at least 8 characters long" })

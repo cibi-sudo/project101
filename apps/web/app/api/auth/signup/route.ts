@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json(
             {
-                message: "Signup successful",
+                message: "Signup successful try signin",
                 user: { id: newUser.id, email: newUser.email, name: newUser.name },
             },
             { status: 201 }

@@ -17,22 +17,23 @@
   "scripts": {
     "build": "tsc -b",
     "generate": "pnpm prisma generate --no-engine",
-    "migrate": "pnpm prisma migrate dev"
+    "migrate": "pnpm prisma migrate dev",
+    "debug": "npx prisma studio"
   },
   "dependencies": {
-    "@prisma/client": "^6.17.0",
+    "@prisma/client": "^6.18.0",
     "@prisma/extension-accelerate": "^2.0.2",
+    "@repo/auth": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/validation": "workspace:*",
-    "@repo/auth": "workspace:*",
-    "prisma": "^6.17.1"
+    "prisma": "^6.18.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@types/node": "^22.15.3",
+    "@types/node": "^24.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

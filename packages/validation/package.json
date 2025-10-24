@@ -17,11 +17,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "zod": "^4.1.12",
-    "@repo/typescript-config" : "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3",
+    "@types/node": "^24.9.1",
     "typescript": "^5.9.3"
   }
 }
