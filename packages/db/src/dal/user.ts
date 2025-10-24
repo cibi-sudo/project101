@@ -1,6 +1,6 @@
 import {prisma} from "../client.js";
 import {UserSignupInput} from "@repo/validation";
-import {authMiddleware} from "@repo/auth";
+
 
 export const userDAL = {
     async createUser (data: UserSignupInput) {
@@ -13,20 +13,14 @@ export const userDAL = {
         );
     },
 
-    async updateUser(token: string, id: string, data: Partial<UserSignupInput>) {
-        const payload = await authMiddleware(token);
-        if (payload.id !== id) throw new Error("Unauthorized");
-
+    async updateUser(id: string, data: Partial<UserSignupInput>) {
         return prisma.user.update({
             where: { id },
             data,
         });
     },
 
-    async deleteUser(token: string, id: string) {
-        const payload = await authMiddleware(token);
-        if (payload.id !== id) throw new Error("Unauthorized");
-
+    async deleteUser(id: string) {
         return prisma.user.delete({
             where: { id },
         });

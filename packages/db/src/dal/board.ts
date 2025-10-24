@@ -1,11 +1,7 @@
 import {prisma} from "../client.js";
-import {authMiddleware} from "@repo/auth";
 
 export const boardDAL = {
-    async createBoard(token: string, ownerId: string, title: string) {
-        const payload = await authMiddleware(token);
-        if (payload.id !== ownerId) throw new Error("Unauthorized");
-
+    async createBoard(ownerId: string, title: string) {
         return await prisma.board.create({
             data: {
                 title,
@@ -18,13 +14,14 @@ export const boardDAL = {
         });
     },
 
-    async findByTitle(token: string, title: string) {
-        const payload = await authMiddleware(token);
-
+    async findByTitle(ownerId: string,title: string) {
         return  await prisma.board.findFirst({
             where: {
                 title,
-                ownerId: payload.id,
+                ownerId,
+            },
+            select: {
+                title: true,
             },
         });
     }

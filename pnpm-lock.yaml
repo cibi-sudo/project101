@@ -66,6 +66,9 @@ importers:
 
   apps/ws-backend:
     dependencies:
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
